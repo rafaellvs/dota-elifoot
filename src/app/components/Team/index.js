@@ -1,6 +1,5 @@
 import React from 'react'
-
-import teams from 'app/helpers/teams'
+import { useSelector } from 'react-redux'
 
 import Text from 'app/components/core/Text'
 import Image from 'app/components/core/Image'
@@ -12,7 +11,7 @@ import { Overview, Info } from './styled'
 const Team = () => {
   const columns = ['Name', 'Position']
   const columnsMatch = ['Against', 'League', 'Bracket', 'Format']
-  const team = teams[0]
+  const team = useSelector(state => state.team)
 
   return (
     <>
