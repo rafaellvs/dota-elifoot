@@ -27,7 +27,7 @@ const TeamSelector = () => {
 
   const handleNext = () => {
     dispatch(setPlayerTeam(teams[selected - 1]))
-    navigate('team')
+    navigate('league')
   }
 
   return (
