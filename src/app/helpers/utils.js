@@ -1,3 +1,5 @@
+import { addGroup } from 'app/redux/actions/league'
+
 import heroes from 'app/helpers/constants/heroes'
 
 // TODO: split this file
@@ -46,9 +48,38 @@ export const formatNumber = num => {
   return formatted
 }
 
+// -------------
 // team related
 export const getPlayerImage = id =>
   `https://www.opendota.com/assets/images/dota2/players/${id}.png`
 
 export const getPlayerDefaultPortrait = () =>
   'https://www.opendota.com/assets/images/dota2/players/portrait.png'
+
+// -------------
+// league related
+export const generateLeagueGroupStage = (dispatch, teams) => {
+  const teamCopy = [...teams]
+  const groupSize = teamCopy.length >= 16 ? 8 : 4
+  let groupTeams = []
+  let groupLetter = String.fromCharCode(64)
+
+  while (teamCopy.length) {
+    const rng = Math.floor(Math.random() * teamCopy.length)
+    groupTeams = [...groupTeams, teamCopy[rng]]
+    teamCopy.splice(rng, 1)
+
+    if (teamCopy.length % groupSize === 0) {
+      groupLetter = String.fromCharCode(groupLetter.charCodeAt() + 1)
+
+      dispatch(addGroup(
+        {
+          name: groupLetter,
+          teams: groupTeams,
+        }
+      ))
+
+      groupTeams = []
+    }
+  }
+}
