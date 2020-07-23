@@ -5,17 +5,19 @@ import { navigate } from '@reach/router'
 import { generateLeagueGroupStage } from 'app/helpers/utils'
 import teams from 'app/helpers/teams'
 
+import GroupCrosstable from 'app/components/GroupCrosstable'
+
 import Text from 'app/components/core/Text'
 import Button from 'app/components/core/Button'
 import Table from 'app/components/core/Table'
 import Cell from 'app/components/core/Table/Cell'
 
-import { Groups, Group } from './styled'
+import { Group, Tables } from './styled'
 
 const League = () => {
   const dispatch = useDispatch()
   const league = useSelector(state => state.league)
-  const columns = ['Team', 'Points']
+  const columns = ['Team', 'Score', 'Points']
 
   const handleClick = () => {
     navigate('team')
@@ -28,20 +30,20 @@ const League = () => {
   return (
     <div>
       <Text component='h1'>
-        League
+        {league.name}
       </Text>
       <Text padding='1rem 0 0 0'>
         {`youre playing ${league.name}`}
       </Text>
 
-      <Groups>
-        {
-          league.groups.map(group =>
-            <Group key={group.name}>
-              <Text component='h3' padding='0 0 1rem 0'>
-                {`Group ${group.name}`}
-              </Text>
+      {
+        league.groups.map(group =>
+          <Group key={group.name}>
+            <Text component='h3' padding='0 0 1rem 0'>
+              {`Group ${group.name}`}
+            </Text>
 
+            <Tables>
               <Table columns={columns}>
                 {
                   group.teams.map(team =>
@@ -52,17 +54,23 @@ const League = () => {
                         </Text>
                       </Cell>
 
-                      <Cell id='points'>
+                      <Cell id='score'>
+                        0-0-0
+                      </Cell>
+
+                      <Cell id='points' align='center'>
                         0
                       </Cell>
                     </tr>
                   )
                 }
               </Table>
-            </Group>
-          )
-        }
-      </Groups>
+
+              <GroupCrosstable group={group} />
+            </Tables>
+          </Group>
+        )
+      }
 
       <Button onClick={handleClick}>
         {'next >'}
