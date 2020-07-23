@@ -7,8 +7,11 @@ export const CoreTable = styled.table`
   border-collapse: collapse;
   color: ${theme.colors.white};
 
-  th, td {
+  th {
     text-align: left;
+  }
+  
+  th, td {
     padding: .5rem .8rem;
 
     &:first-child {

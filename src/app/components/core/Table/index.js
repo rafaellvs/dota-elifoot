@@ -26,11 +26,14 @@ const Table = ({ columns, children }) => {
 
   return (
     <CoreTable>
-      <thead>
-        <tr>
-          {renderColumns()}
-        </tr>
-      </thead>
+      {
+        columns &&
+          <thead>
+            <tr>
+              {renderColumns()}
+            </tr>
+          </thead>
+      }
 
       <tbody>
         {children}
