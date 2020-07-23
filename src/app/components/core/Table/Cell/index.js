@@ -4,6 +4,7 @@ import theme from 'app/helpers/theme'
 
 const Cell = styled.td`
   max-width: ${({ width }) => width || 'unset'};
+  text-align: ${({ align }) => align || 'left'}
   
   ${
     ({ variant }) => variant &&
