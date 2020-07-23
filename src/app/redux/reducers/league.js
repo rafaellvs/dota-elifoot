@@ -12,29 +12,6 @@ const league = (state = initialState, action) => {
         ...state,
         groups: [...state.groups, action.group],
       }
-    case 'ADD_UPPER_MATCH':
-      return {
-        ...state,
-        upper: [
-          ...state.upper,
-          {
-            team1: action.team1,
-            team2: action.team2,
-          },
-        ],
-      }
-
-    case 'ADD_LOWER_MATCH':
-      return {
-        ...state,
-        lower: [
-          ...state.lower,
-          {
-            team1: action.team1,
-            team2: action.team2,
-          },
-        ],
-      }
 
     default:
       return state
