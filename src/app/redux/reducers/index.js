@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 
 import match from './match'
 import team from './team'
-import league from './league'
+import leagues from './leagues'
 
 const appReducer = combineReducers({
   match,
   team,
-  league,
+  leagues,
 })
 
 const rootReducer = (state, action) => {
