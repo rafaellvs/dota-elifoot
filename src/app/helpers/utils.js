@@ -1,5 +1,3 @@
-import { addGroup } from 'app/redux/actions/league'
-
 import heroes from 'app/helpers/constants/heroes'
 
 // TODO: split this file
@@ -79,9 +77,10 @@ export const generateGroupMatches = teams => {
   return matches
 }
 
-export const generateLeagueGroupStage = (dispatch, teams) => {
+export const generateLeagueGroupStage = teams => {
   const teamCopy = [...teams]
   const groupSize = teamCopy.length >= 16 ? 8 : 4
+  const groupStage = []
   let groupTeams = []
   let groupLetter = String.fromCharCode(64)
 
@@ -93,18 +92,19 @@ export const generateLeagueGroupStage = (dispatch, teams) => {
     if (teamCopy.length % groupSize === 0) {
       const groupMatches = generateGroupMatches(groupTeams)
       groupLetter = String.fromCharCode(groupLetter.charCodeAt() + 1)
-
-      dispatch(addGroup(
+      groupStage.push(
         {
           name: groupLetter,
           teams: groupTeams,
           matches: groupMatches,
         }
-      ))
+      )
 
       groupTeams = []
     }
   }
+
+  return groupStage
 }
 
 // this generates a matrix sizexsize in the following structure (for size = 4):
