@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { navigate } from '@reach/router'
+
+import { createLeague } from 'app/redux/actions/leagues'
 
 import { generateLeagueGroupStage } from 'app/helpers/utils'
 import teams from 'app/helpers/teams'
@@ -16,16 +18,20 @@ import { Group, Tables } from './styled'
 
 const League = () => {
   const dispatch = useDispatch()
-  const league = useSelector(state => state.league)
   const columns = ['Team', 'Score', 'Points']
+
+  dispatch(createLeague({
+    id: 1,
+    name: 'The international',
+    teams: teams,
+    groupStage: generateLeagueGroupStage(teams),
+    playoffs: null,
+  }))
+  const league = useSelector(state => state.leagues[0])
 
   const handleClick = () => {
     navigate('team')
   }
-
-  useEffect(() => {
-    generateLeagueGroupStage(dispatch, teams)
-  }, [])
 
   return (
     <div>
@@ -37,7 +43,7 @@ const League = () => {
       </Text>
 
       {
-        league.groups.map(group =>
+        league.groupStage.map(group =>
           <Group key={group.name}>
             <Text component='h3' padding='0 0 1rem 0'>
               {`Group ${group.name}`}
