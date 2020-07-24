@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { LocationProvider } from '@reach/router'
+import 'regenerator-runtime'
 
 import store from 'app/redux/store'
 import GlobalStyles from 'app/helpers/globalStyles'
